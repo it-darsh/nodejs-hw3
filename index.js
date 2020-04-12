@@ -19,7 +19,7 @@ app.use(
     cookie: {
       path: '/',
       httpOnly: true,
-      maxAge: 10000
+      maxAge: 10 * 60 * 1000
     },
     saveUninitialized: false,
     resave: false
@@ -27,11 +27,6 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', (req, res, next) => {
-  req.session.views = req.session.views === void 0 ? 0 : ++req.session.views
-  next()
-})
 
 app.use('/', require('./routes/index'));
 
