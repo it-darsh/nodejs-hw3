@@ -43,7 +43,7 @@ router.get('/admin', isAdmin, (req, res) => {
   res.render('pages/admin');
 });
 
-router.post('/admin/upload', (req, res) => {
+router.post('/admin/upload', isAdmin, (req, res) => {
   let form = new formidable.IncomingForm();
   let upload = path.join('./public', 'assets', 'img', 'products')
 
@@ -54,18 +54,28 @@ router.post('/admin/upload', (req, res) => {
   form.uploadDir = path.join(process.cwd(), upload)
 
   form.parse(req, function (err, fields, files) {
-    // if (err) {
-    //   return next(err)
-    // }
+    if (err) {
+      return next(err)
+    }
 
-    // const valid = validation(fields, files)
+    const valid = validation(fields, files)
 
-    // if (valid.err) {
-    //   fs.unlinkSync(files.photo.path)
-    //   return res.redirect(`/?msg=${valid.status}`)
-    // }
+    if (valid.err) {
+      fs.unlinkSync(files.photo.path)
+      return res.redirect(`/admin?msg=${valid.status}`)
+    }
 
-    const fileName = path.join(upload, files.photo.name)
+    const fileName = path.join(upload, files.photo.name);
+
+    const validation = (fields, files) => {
+      if (files.photo.name === '' || files.photo.size === 0) {
+        return { status: 'Не загружена картинка!', err: true };
+      }
+      if (!fields.name) {
+        return { status: 'Не указано описание картинки!', err: true };
+      }
+      return { status: 'Ok', err: false };
+    }
 
     fs.rename(files.photo.path, fileName, function (err) {
       if (err) {
@@ -75,10 +85,7 @@ router.post('/admin/upload', (req, res) => {
 
       let dir = fileName.substr(fileName.indexOf('\\'))
 
-      // db.set(fields.name, dir)
-      // db.save()
-      db.add('products', {src: dir, name: fields.name, price: fields.price })
-      console.log(fields.name, fields.price, dir);
+      db.add('products', {src: dir, name: fields.name, price: fields.price });
       res.redirect('/admin?msg=Картинка успешно загружена')
     })
   })

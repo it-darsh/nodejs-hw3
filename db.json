@@ -68,11 +68,6 @@
       "src": "./assets/img/products/Work9.jpg",
       "name": "Вино вдохновение",
       "price": 600
-    },
-    {
-      "src": "\\assets\\img\\products\\10.JPG",
-      "name": "Не вино",
-      "price": "1234"
     }
   ]
 }
