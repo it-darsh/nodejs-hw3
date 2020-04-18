@@ -1,6 +1,11 @@
 {
-  "social" : ["fa-linkedin-in", "fa-github-alt", "fa-tumblr", "fa-vk"],
-  "skills" : [
+  "social": [
+    "fa-linkedin-in",
+    "fa-github-alt",
+    "fa-tumblr",
+    "fa-vk"
+  ],
+  "skills": [
     {
       "number": 12,
       "text": "Возраст начала занятий на скрипке"
@@ -18,11 +23,11 @@
       "text": "Лет на сцене в качестве скрипача"
     }
   ],
-  "products" : [
+  "products": [
     {
       "src": "./assets/img/products/Work1.jpg",
       "name": "Брелок вдохновение",
-      "price": 1234567
+      "price": 12345
     },
     {
       "src": "./assets/img/products/Work2.jpg",
@@ -63,23 +68,11 @@
       "src": "./assets/img/products/Work9.jpg",
       "name": "Вино вдохновение",
       "price": 600
-    }
-  ],
-  "skills": [
-    {
-      "number": 33,
-      "text": "texta",
-      "id": 0
     },
     {
-      "number": 33,
-      "text": "texta",
-      "id": 1
-    },
-    {
-      "number": 33,
-      "text": "texta",
-      "id": 2
+      "src": "\\assets\\img\\products\\10.JPG",
+      "name": "Не вино",
+      "price": "1234"
     }
   ]
 }
