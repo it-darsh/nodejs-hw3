@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const db = require('../db');
 
 const isAdmin = (req, res, next) => {
   if(req.session.isAdmin) {
@@ -8,7 +9,7 @@ const isAdmin = (req, res, next) => {
 };
 
 router.get('/', (req, res) => {
-  res.render('pages/index');
+  res.render('pages/index', {social: db.get('social'), skills: db.get('skills'), products: db.get('products')});
 });
 
 router.post('/', (req, res) => {
@@ -20,7 +21,10 @@ router.post('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('pages/login');
+  if (req.session.isAdmin) {    
+    res.redirect('admin');
+  }
+  res.render('pages/login', {social: db.get('social'), skills: db.get('skills'), products: db.get('products')});
 });
 
 router.post('/login', (req, res) => {
